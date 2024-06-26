@@ -1,0 +1,28 @@
+package user
+
+import (
+    "fmt"
+    "todo/views/layout"
+    "todo/views/components"
+    "todo/model"
+    "github.com/labstack/echo/v4"
+)
+
+func GetUser(c echo.Context) string {
+    return fmt.Sprintln(c.Get("user"))
+}
+
+templ Show(user model.User, c echo.Context) {
+    @layout.Base() {
+        <h1 class="font-thin">Hello { user.Name }</h1>
+        <p>Your email id: { user.Email }</p>
+        <p class="font-bold bg-black text-slate-50">Your user id: { user.UserID }</p>
+        @components.Input(components.InputProps{
+            Typ : "email",
+            Name : "email",
+        })
+        <p>
+        {GetUser(c)}
+        </p>
+    }
+}
